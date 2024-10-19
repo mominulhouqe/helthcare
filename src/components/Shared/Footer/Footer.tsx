@@ -1,7 +1,9 @@
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
-import facebook from "@/assets/images/familyOnBeach.png";
+import facebook from "@/assets/landing_page/facebook.png";
+import instagram from "@/assets/landing_page/instagram.png";
+import twitter from "@/assets/landing_page/twitter.png";
 const Footer = () => {
   return (
     <Box bgcolor="rgb(17,26,34)">
@@ -38,8 +40,8 @@ const Footer = () => {
           alignItems="center"
         >
           <Image src={facebook} alt="facebook" width={40} height={40} />
-          <Image src={facebook} alt="facebook" width={40} height={40} />
-          <Image src={facebook} alt="facebook" width={40} height={40} />
+          <Image src={instagram} alt="instagram" width={40} height={40} />
+          <Image src={twitter} alt="twitter" width={40} height={40} />
         </Stack>
         <div className="border-dashed  border-b-[1px]"></div>
         <Stack
