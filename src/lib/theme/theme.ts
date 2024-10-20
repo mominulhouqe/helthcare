@@ -27,5 +27,14 @@ export const theme = createTheme({
       color: "#0B1134CC",
     },
   },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 900,
+      lg: 1200,
+      xl: 1536,
+    },
+  },
 });
 theme.shadows[1] = "0px 5px 22px lightgray";

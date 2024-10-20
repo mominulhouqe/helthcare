@@ -8,7 +8,6 @@ const Specialiets = async () => {
     },
   });
   const { data: specialties } = await res.json();
-  console.log(specialties);
 
   return (
     <>
