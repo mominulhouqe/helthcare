@@ -1,4 +1,4 @@
-import { Box, Container, Stack, Typography } from "@mui/material";
+import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 
 const Specialiets = async () => {
@@ -39,7 +39,29 @@ const Specialiets = async () => {
           </Box>
           <Stack direction="row" gap={4} fontSize={18}>
             {specialties.map((specialty: any) => (
-              <Box key={specialty.id}>
+              <Box
+                key={specialty.id}
+                sx={{
+                  flex: 1,
+                  width: "150px",
+                  backgroundColor: "rgba(245,245,245,1)",
+                  border: "1px solid rgba(250,250,250,1)",
+                  borderRadius: "10px",
+                  textAlign: "center",
+                  padding: "40px 10px",
+                  mt: 4,
+                  "& img": {
+                    width: "50px",
+                    height: "50px",
+                    margin: "0 auto",
+                  },
+                  "&:hover": {
+                    border: "1px solid  #007bff",
+                    padding: "40px 10px",
+                    borderRadius: "10px",
+                  },
+                }}
+              >
                 {specialty?.icon ? (
                   <Image
                     src={specialty.icon} // Ensure this is a valid URL
@@ -68,6 +90,14 @@ const Specialiets = async () => {
               </Box>
             ))}
           </Stack>
+          <Button
+            variant="outlined"
+            sx={{
+              mt: 4,
+            }}
+          >
+            View All
+          </Button>
         </Box>
       </Container>
     </>
