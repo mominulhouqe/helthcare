@@ -1,15 +1,17 @@
 import { Box, Button, Container, Typography } from "@mui/material";
 import assets from "@/assets";
 import Image from "next/image";
+
 const HeroSection = () => {
   return (
     <Container
       sx={{
         display: "flex",
-        direction: "row",
-        my: 16,
+        flexDirection: { xs: "column", md: "row" },
+        my: { xs: 8, md: 16 },
       }}
     >
+      {/* Left Content */}
       <Box
         sx={{
           flex: 1,
@@ -20,10 +22,16 @@ const HeroSection = () => {
           sx={{
             position: "absolute",
             top: "-90px",
-            left: "-120",
+            left: "-120px", // Fixed left with units
+            zIndex: -1, // Ensure it stays in the background
           }}
         >
-          <Image src={assets.svgs.grid} alt="grid" />
+          <Image
+            src={assets.svgs.grid}
+            alt="Decorative grid background"
+            width={500}
+            height={600}
+          />
         </Box>
         <Typography variant="h3" component="h1" fontWeight={600}>
           Healthier Hearts
@@ -44,8 +52,8 @@ const HeroSection = () => {
           component="p"
           fontWeight={400}
           sx={{
-            width: "50%",
-            my: "20px",
+            width: { xs: "100%", md: "50%" },
+            my: 2,
           }}
         >
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Atque
@@ -53,26 +61,29 @@ const HeroSection = () => {
           suscipit ratione excepturi distinctio, laboriosam, corrupti ea minus
           quis cumque
         </Typography>
-        <Button>Make Appoinment</Button>
+        <Button>Make Appointment</Button>
         <Button
           variant="outlined"
           sx={{
-            marginLeft: "10px",
+            ml: 2, // Fixed margin between buttons
           }}
         >
           Contact Us
         </Button>
       </Box>
+
+      {/* Right Content (Images) */}
       <Box
         sx={{
           position: "relative",
-          mt: 0,
+          mt: { xs: 4, md: 0 }, // Adjust top margin for mobile
           p: 1,
           display: "flex",
           flex: 1,
           justifyContent: "center",
         }}
       >
+        {/* Arrow Image */}
         <Box
           sx={{
             position: "absolute",
@@ -82,62 +93,71 @@ const HeroSection = () => {
         >
           <Image
             src={assets.svgs.arrow}
+            alt="Arrow graphic"
             width={100}
             height={100}
-            alt="img"
-          ></Image>
+          />
         </Box>
+
+        {/* Doctor Images (Row) */}
         <Box
           sx={{
             display: "flex",
             gap: 2,
+            flexDirection: { xs: "column", md: "row" }, // Make doctors stack in column for small screens
           }}
         >
           <Box mt={4}>
             <Image
               src={assets.images.doctor1}
+              alt="Doctor 1"
               width={240}
               height={380}
-              alt="imag3"
-            ></Image>
+              priority // Preload important images
+            />
           </Box>
           <Box>
             <Image
               src={assets.images.doctor2}
+              alt="Doctor 2"
               width={240}
               height={380}
-              alt="imag3"
-            ></Image>
+              priority
+            />
           </Box>
         </Box>
+
+        {/* Third Doctor Image (Absolute Position) */}
         <Box
           sx={{
             position: "absolute",
             top: "220px",
-            left: "150",
+            left: "150px", // Added px for units
           }}
         >
           <Image
             src={assets.images.doctor3}
+            alt="Doctor 3"
             width={240}
             height={240}
-            alt="imag3"
-          ></Image>
+          />
         </Box>
+
+        {/* Stethoscope Image */}
         <Box
           sx={{
             position: "absolute",
             bottom: "0px",
             right: 0,
-            zIndex: "-1",
+            zIndex: "-1", // Ensure it stays in the background
           }}
         >
           <Image
             src={assets.images.stethoscope}
+            alt="Stethoscope"
             width={180}
             height={180}
-            alt="imag3"
-          ></Image>
+          />
         </Box>
       </Box>
     </Container>
