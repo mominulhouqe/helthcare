@@ -136,6 +136,173 @@ const HowToWorks = () => {
           </Grid>
         </Grid>
       </Grid>
+      <Box
+        sx={{
+          my: 4,
+          background:
+            "linear-gradient(90deg, rgba(0, 123, 255, 1), rgba(0, 82, 212, 1))",
+          color: "white",
+          display: "flex",
+          flexDirection: { xs: "column", md: "row" },
+          justifyContent: "space-around",
+          alignItems: "center",
+          borderRadius: "15px",
+          boxShadow: "0px 8px 30px rgba(0, 0, 0, 0.15)",
+          p: 2,
+        }}
+      >
+        {/* Stat 1 */}
+        <Box
+          sx={{
+            textAlign: "center",
+            mx: { xs: 0, md: 2 },
+            my: { xs: 2, md: 0 },
+            transition: "transform 0.3s",
+            "&:hover": {
+              transform: "scale(1.05)",
+            },
+          }}
+        >
+          <Box
+            sx={{
+              width: "100px",
+              height: "100px",
+              borderRadius: "50%",
+              border: "5px solid white",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              mx: "auto",
+              mb: 2,
+              fontSize: "1.8rem",
+              fontWeight: 700,
+            }}
+          >
+            180+
+          </Box>
+          <Typography
+            component="p"
+            fontWeight={300}
+            sx={{ fontSize: "1.1rem", color: "white" }}
+          >
+            Expert Doctors
+          </Typography>
+        </Box>
+
+        {/* Stat 2 */}
+        <Box
+          sx={{
+            textAlign: "center",
+            mx: { xs: 0, md: 2 },
+            my: { xs: 2, md: 0 },
+            transition: "transform 0.3s",
+            "&:hover": {
+              transform: "scale(1.05)",
+            },
+          }}
+        >
+          <Box
+            sx={{
+              width: "100px",
+              height: "100px",
+              borderRadius: "50%",
+              border: "5px solid white",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              mx: "auto",
+              mb: 2,
+              fontSize: "1.8rem",
+              fontWeight: 700,
+            }}
+          >
+            250+
+          </Box>
+          <Typography
+            component="p"
+            fontWeight={300}
+            sx={{ fontSize: "1.1rem", color: "white" }}
+          >
+            Expert Services
+          </Typography>
+        </Box>
+
+        {/* Stat 3 */}
+        <Box
+          sx={{
+            textAlign: "center",
+            mx: { xs: 0, md: 2 },
+            my: { xs: 2, md: 0 },
+            transition: "transform 0.3s",
+            "&:hover": {
+              transform: "scale(1.05)",
+            },
+          }}
+        >
+          <Box
+            sx={{
+              width: "100px",
+              height: "100px",
+              borderRadius: "50%",
+              border: "5px solid white",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              mx: "auto",
+              mb: 2,
+              fontSize: "1.8rem",
+              fontWeight: 700,
+            }}
+          >
+            10K+
+          </Box>
+          <Typography
+            component="p"
+            fontWeight={300}
+            sx={{ fontSize: "1.1rem", color: "white" }}
+          >
+            Happy Patients
+          </Typography>
+        </Box>
+
+        {/* Stat 4 */}
+        <Box
+          sx={{
+            textAlign: "center",
+            mx: { xs: 0, md: 2 },
+            my: { xs: 2, md: 0 },
+            transition: "transform 0.3s",
+            "&:hover": {
+              transform: "scale(1.05)",
+            },
+          }}
+        >
+          <Box
+            sx={{
+              width: "100px",
+              height: "100px",
+              borderRadius: "50%",
+              border: "5px solid white",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              mx: "auto",
+              mb: 2,
+              fontSize: "1.8rem",
+              fontWeight: 700,
+            }}
+          >
+            150+
+          </Box>
+          <Typography
+            component="p"
+            fontWeight={300}
+            sx={{ fontSize: "1.1rem", color: "white" }}
+          >
+            Best Award Winner
+          </Typography>
+        </Box>
+      </Box>
     </Container>
   );
 };
