@@ -16,6 +16,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useState } from "react";
 import Link from "next/link";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { modifyPayload } from "@/utils/modifyPayload";
 
 interface IpatientInput {
   name: string;
@@ -42,8 +43,11 @@ const RegisterPage = () => {
     setShowPassword((prev) => !prev);
   };
 
-  const onSubmit: SubmitHandler<IpatientFormValue> = (data) =>
+  const onSubmit: SubmitHandler<IpatientFormValue> = (values) => {
+    const data = modifyPayload(values);
+
     console.log(data);
+  };
 
   return (
     <Container
