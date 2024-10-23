@@ -17,6 +17,9 @@ import { useState } from "react";
 import Link from "next/link";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { modifyPayload } from "@/utils/modifyPayload";
+import { registerPatient } from "@/services/actions/registerPatient";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 interface IpatientInput {
   name: string;
@@ -39,14 +42,28 @@ const RegisterPage = () => {
     formState: { errors },
   } = useForm<IpatientFormValue>();
 
+  const router = useRouter();
+
   const handleShowPassword = () => {
     setShowPassword((prev) => !prev);
   };
 
-  const onSubmit: SubmitHandler<IpatientFormValue> = (values) => {
+  const onSubmit: SubmitHandler<IpatientFormValue> = async (values) => {
     const data = modifyPayload(values);
 
-    console.log(data);
+    try {
+      const res = await registerPatient(data);
+
+      if (res?.data?.id) {
+        toast.success(res?.message);
+        router.push("/login");
+      } else {
+        toast.error(res.message || "Registration failed. Please try again.");
+      }
+    } catch (error: any) {
+      toast.error(error?.message || "An unexpected error occurred.");
+      console.log(error.message);
+    }
   };
 
   return (
@@ -168,7 +185,7 @@ const RegisterPage = () => {
             variant="contained"
             color="primary"
             size="medium"
-            sx={{ borderRadius: 2, my: "15px" }}
+            sx={{ borderRadius: 2, my: "15px", width: "100%" }}
             type="submit"
           >
             Register Now
