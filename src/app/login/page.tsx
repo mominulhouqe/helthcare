@@ -17,8 +17,10 @@ import { useState } from "react";
 import Link from "next/link";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
+import { userLogin } from "@/services/actions/userLogin";
+import { toast } from "sonner";
 
-interface IpatientLoginValue {
+export interface IpatientLoginValue {
   email: string;
   password: string;
 }
@@ -33,9 +35,17 @@ const LoginPage = () => {
     formState: { errors },
   } = useForm<IpatientLoginValue>();
 
-  const onSubmit: SubmitHandler<IpatientLoginValue> = (data) => {
+  const onSubmit: SubmitHandler<IpatientLoginValue> = async (data) => {
     console.log(data);
     try {
+      const res = await userLogin(data);
+      console.log(res);
+      if (res?.data?.id) {
+        toast.success(res?.message);
+        router.push("/");
+      } else {
+        toast.error(res.message || "Login failed. Please try again.");
+      }
     } catch (err: any) {
       console.log(err.message);
     }
@@ -98,7 +108,7 @@ const LoginPage = () => {
                   variant="outlined"
                   size="small"
                   fullWidth={true}
-                  {...register("password")}
+                  {...register("email")}
                 />
               </Grid>
               <Grid item xs={12} md={6}>
@@ -141,7 +151,7 @@ const LoginPage = () => {
             variant="contained"
             color="primary"
             size="medium"
-            sx={{ borderRadius: 2, my: "15px", width: "82%" }}
+            sx={{ borderRadius: 2, my: "15px", width: "100%" }}
             type="submit"
           >
             Login
