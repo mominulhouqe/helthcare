@@ -5,9 +5,6 @@ import {
   Stack,
   Typography,
   Button,
-  FormControl,
-  FormLabel,
-  Input,
   Grid,
   TextField,
   IconButton,
@@ -17,15 +14,36 @@ import Image from "next/image";
 import assest from "@/assets";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useState } from "react";
-import { theme } from "@/lib/theme/theme";
 import Link from "next/link";
+import { useForm, SubmitHandler } from "react-hook-form";
+
+interface IpatientInput {
+  name: string;
+  email: string;
+  contactNumber: string;
+  address: String;
+}
+
+interface IpatientFormValue {
+  password: String;
+  patient: IpatientInput;
+}
 
 const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<IpatientFormValue>();
 
   const handleShowPassword = () => {
     setShowPassword((prev) => !prev);
   };
+
+  const onSubmit: SubmitHandler<IpatientFormValue> = (data) =>
+    console.log(data);
 
   return (
     <Container
@@ -74,76 +92,84 @@ const RegisterPage = () => {
             </Typography>
           </Box>
         </Stack>
-        <Box>
-          <Grid container spacing={2} mt={1}>
-            <Grid item xs={12}>
-              <TextField
-                id="name"
-                label="Name"
-                variant="outlined"
-                size="small"
-                fullWidth={true}
-              />
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Box>
+            <Grid container spacing={2} mt={1}>
+              <Grid item xs={12}>
+                <TextField
+                  id="name"
+                  label="Name"
+                  variant="outlined"
+                  size="small"
+                  fullWidth={true}
+                  {...register(`patient.name`)}
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <TextField
+                  id="email"
+                  label="Email"
+                  variant="outlined"
+                  size="small"
+                  fullWidth={true}
+                  {...register(`patient.email`)}
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <TextField
+                  id="password"
+                  label="Password"
+                  variant="outlined"
+                  size="small"
+                  fullWidth={true}
+                  {...register("password")}
+                  type={showPassword ? "text" : "password"}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleShowPassword}
+                        >
+                          {showPassword ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <TextField
+                  id="contractNumber"
+                  label="Contract Number"
+                  variant="outlined"
+                  size="small"
+                  fullWidth={true}
+                  {...register(`patient.contactNumber`)}
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <TextField
+                  id="Address"
+                  label="Address"
+                  variant="outlined"
+                  size="small"
+                  fullWidth={true}
+                  {...register(`patient.address`)}
+                />
+              </Grid>
             </Grid>
-            <Grid item xs={12} md={6}>
-              <TextField
-                id="email"
-                label="Email"
-                variant="outlined"
-                size="small"
-                fullWidth={true}
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <TextField
-                id="password"
-                label="Password"
-                variant="outlined"
-                size="small"
-                fullWidth={true}
-                type={showPassword ? "text" : "password"}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleShowPassword}
-                      >
-                        {showPassword ? <Visibility /> : <VisibilityOff />}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <TextField
-                id="contractNumber"
-                label="Contract Number"
-                variant="outlined"
-                size="small"
-                fullWidth={true}
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <TextField
-                id="Address"
-                label="Address"
-                variant="outlined"
-                size="small"
-                fullWidth={true}
-              />
-            </Grid>
-          </Grid>
-        </Box>
-        <Button
-          variant="contained"
-          color="primary"
-          size="medium"
-          sx={{ borderRadius: 2, my: "15px" }}
-        >
-          Register Now
-        </Button>
+          </Box>
+          <Button
+            variant="contained"
+            color="primary"
+            size="medium"
+            sx={{ borderRadius: 2, my: "15px" }}
+            type="submit"
+          >
+            Register Now
+          </Button>
+        </form>
         <Typography variant="body1" color="secondary.main" sx={{ mt: 2 }}>
           Already have an account?{" "}
           <Link href="/login" style={{ color: "blue", fontWeight: 550 }}>
