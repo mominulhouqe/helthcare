@@ -19,6 +19,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { userLogin } from "@/services/actions/userLogin";
 import { toast } from "sonner";
+import { storeUserInfo } from "@/services/auth.services";
 
 export interface IpatientLoginValue {
   email: string;
@@ -40,9 +41,8 @@ const LoginPage = () => {
     try {
       const res = await userLogin(data);
       console.log(res);
-      if (res?.data?.id) {
-        toast.success(res?.message);
-        router.push("/");
+      if (res?.data?.accessToken) {
+        storeUserInfo({ accessToken: res?.data?.accessToken });
       } else {
         toast.error(res.message || "Login failed. Please try again.");
       }
