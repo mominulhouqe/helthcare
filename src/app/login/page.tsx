@@ -36,13 +36,13 @@ const LoginPage = () => {
     formState: { errors },
   } = useForm<IpatientLoginValue>();
 
-  const onSubmit: SubmitHandler<IpatientLoginValue> = async (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<IpatientLoginValue> = async (values) => {
     try {
-      const res = await userLogin(data);
-      console.log(res);
+      const res = await userLogin(values);
       if (res?.data?.accessToken) {
+        toast.success(res?.message);
         storeUserInfo({ accessToken: res?.data?.accessToken });
+        router.push("/");
       } else {
         toast.error(res.message || "Login failed. Please try again.");
       }
