@@ -15,28 +15,19 @@ import assest from "@/assets";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useState } from "react";
 import Link from "next/link";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { userLogin } from "@/services/actions/userLogin";
 import { toast } from "sonner";
 import { storeUserInfo } from "@/services/auth.services";
-
-export interface IpatientLoginValue {
-  email: string;
-  password: string;
-}
+import CustomForm from "@/components/CustomForm/CustomForm";
+import CustomInput from "@/components/CustomForm/CustomInput";
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<IpatientLoginValue>();
 
-  const onSubmit: SubmitHandler<IpatientLoginValue> = async (values) => {
+  const handleLogin = async (values: FieldValues) => {
     try {
       const res = await userLogin(values);
       if (res?.data?.accessToken) {
@@ -98,40 +89,18 @@ const LoginPage = () => {
             </Typography>
           </Box>
         </Stack>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <CustomForm onSubmit={handleLogin}>
           <Box>
             <Grid container spacing={2} mt={1}>
               <Grid item xs={12} md={6}>
-                <TextField
-                  id="email"
-                  label="Email"
-                  variant="outlined"
-                  size="small"
-                  fullWidth={true}
-                  {...register("email")}
-                />
+                <CustomInput name="email" label="Email" fullWidth={true} />
               </Grid>
               <Grid item xs={12} md={6}>
-                <TextField
-                  id="password"
+                <CustomInput
+                  name="password"
                   label="Password"
-                  variant="outlined"
-                  size="small"
-                  fullWidth={true}
-                  {...register("password")}
+                  fullWidth
                   type={showPassword ? "text" : "password"}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton
-                          aria-label="toggle password visibility"
-                          onClick={handleShowPassword}
-                        >
-                          {showPassword ? <Visibility /> : <VisibilityOff />}
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                  }}
                 />
               </Grid>
             </Grid>
@@ -156,7 +125,7 @@ const LoginPage = () => {
           >
             Login
           </Button>
-        </form>
+        </CustomForm>
 
         <Typography variant="body1" color="secondary.main" sx={{ mt: 2 }}>
           Are you new here?{" "}
