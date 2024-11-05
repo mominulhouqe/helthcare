@@ -15,42 +15,25 @@ import assest from "@/assets";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useState } from "react";
 import Link from "next/link";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import { modifyPayload } from "@/utils/modifyPayload";
 import { registerPatient } from "@/services/actions/registerPatient";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { userLogin } from "@/services/actions/userLogin";
 import { storeUserInfo } from "@/services/auth.services";
-
-interface IpatientInput {
-  name: string;
-  email: string;
-  contactNumber: string;
-  address: String;
-}
-
-interface IpatientFormValue {
-  password: string;
-  patient: IpatientInput;
-}
+import CustomForm from "@/components/CustomForm/CustomForm";
+import CustomInput from "@/components/CustomForm/CustomInput";
 
 const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<IpatientFormValue>();
-
   const router = useRouter();
 
   const handleShowPassword = () => {
     setShowPassword((prev) => !prev);
   };
 
-  const onSubmit: SubmitHandler<IpatientFormValue> = async (values) => {
+  const handleRegister = async (values: FieldValues) => {
     const data = modifyPayload(values);
 
     try {
@@ -124,70 +107,44 @@ const RegisterPage = () => {
             </Typography>
           </Box>
         </Stack>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <CustomForm onSubmit={handleRegister}>
           <Box>
             <Grid container spacing={2} mt={1}>
               <Grid item xs={12}>
-                <TextField
-                  id="name"
+                <CustomInput
                   label="Name"
-                  variant="outlined"
-                  size="small"
                   fullWidth={true}
-                  {...register(`patient.name`)}
+                  name="patient.name"
                 />
               </Grid>
               <Grid item xs={12} md={6}>
-                <TextField
-                  id="email"
+                <CustomInput
+                  type="email"
                   label="Email"
-                  variant="outlined"
-                  size="small"
                   fullWidth={true}
-                  {...register(`patient.email`)}
+                  name="patient.email"
                 />
               </Grid>
               <Grid item xs={12} md={6}>
-                <TextField
-                  id="password"
+                <CustomInput
                   label="Password"
-                  variant="outlined"
-                  size="small"
                   fullWidth={true}
-                  {...register("password")}
+                  name="password"
                   type={showPassword ? "text" : "password"}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton
-                          aria-label="toggle password visibility"
-                          onClick={handleShowPassword}
-                        >
-                          {showPassword ? <Visibility /> : <VisibilityOff />}
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                  }}
                 />
               </Grid>
               <Grid item xs={12} md={6}>
-                <TextField
-                  id="contractNumber"
+                <CustomInput
                   label="Contract Number"
-                  variant="outlined"
-                  size="small"
                   fullWidth={true}
-                  {...register(`patient.contactNumber`)}
+                  name="patient.contactNumber"
                 />
               </Grid>
               <Grid item xs={12} md={6}>
-                <TextField
-                  id="Address"
+                <CustomInput
                   label="Address"
-                  variant="outlined"
-                  size="small"
                   fullWidth={true}
-                  {...register(`patient.address`)}
+                  name="patient.address"
                 />
               </Grid>
             </Grid>
@@ -201,7 +158,7 @@ const RegisterPage = () => {
           >
             Register Now
           </Button>
-        </form>
+        </CustomForm>
         <Typography variant="body1" color="secondary.main" sx={{ mt: 2 }}>
           Already have an account?{" "}
           <Link href="/login" style={{ color: "blue", fontWeight: 550 }}>
