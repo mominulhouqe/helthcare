@@ -6,8 +6,17 @@ import Link from "next/link";
 import { drawerItems } from "@/utils/drawerItems";
 import { UserRole } from "@/types";
 import SidberItems from "./SidberItems";
+import { getUserInfo } from "@/services/auth.services";
+import { useEffect, useState } from "react";
 
 const Sidber = () => {
+  const [userRole, setUserRole] = useState<UserRole | undefined>();
+
+  useEffect(() => {
+    const { role } = getUserInfo() as any;
+    setUserRole(role);
+  }, []);
+
   return (
     <div>
       <Stack
@@ -33,7 +42,7 @@ const Sidber = () => {
         <Typography>MYHelthCare</Typography>
       </Stack>
       <List>
-        {drawerItems("super_admin" as UserRole).map((item, index) => (
+        {drawerItems(userRole as UserRole).map((item, index) => (
           <SidberItems key={index} item={item} />
         ))}
       </List>

@@ -49,7 +49,7 @@ const RegisterPage = () => {
         if (result?.data?.accessToken) {
           toast.success(res?.message);
           storeUserInfo({ accessToken: result?.data?.accessToken });
-          router.push("/");
+          router.push("/dashboard");
         }
       } else {
         toast.error(res.message || "Registration failed. Please try again.");

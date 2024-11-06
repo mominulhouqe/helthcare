@@ -12,6 +12,10 @@ import {
   Book,
   AssignmentInd,
   Payment,
+  FolderSpecial,
+  DocumentScannerRounded,
+  ScheduleOutlined,
+  StarOutline,
 } from "@mui/icons-material";
 
 export const drawerItems = (role: UserRole): DrawerItem[] => {
@@ -59,30 +63,32 @@ export const drawerItems = (role: UserRole): DrawerItem[] => {
           path: `${role}`,
           icon: Dashboard,
         },
+
         {
-          title: "Management User",
-          path: `${role}/manage-users`,
-          icon: VerifiedUserRounded,
+          title: "Specialites",
+          path: `${role}/specialites`,
+          icon: FolderSpecial,
         },
         {
-          title: "Reports",
-          path: `${role}/reports`,
-          icon: Analytics,
+          title: "Doctors",
+          path: `${role}/doctor`,
+          icon: DocumentScannerRounded,
         },
         {
-          title: "Settings",
-          path: `${role}/settings`,
-          icon: Settings,
+          title: "Schedules",
+          path: `${role}/schedules`,
+          icon: ScheduleOutlined,
         },
         {
-          title: "Notifications",
-          path: `${role}/notifications`,
-          icon: Notifications,
-        },
-        {
-          title: "Audit Logs",
-          path: `${role}/audit-logs`,
+          title: "Appoinments",
+          path: `${role}/appoinments`,
           icon: Book,
+        },
+
+        {
+          title: "Reviews",
+          path: `${role}/reviews`,
+          icon: StarOutline,
         }
       );
       break;
