@@ -45,6 +45,9 @@ export default function DashboardDrawer({
         sx={{
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
+          background: "white",
+          boxShadow: 0,
+          borderBottom: "1px solid wheat",
         }}
       >
         <Toolbar>
@@ -53,13 +56,28 @@ export default function DashboardDrawer({
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" } }}
+            sx={{
+              mr: 2,
+              display: { sm: "none" },
+              color: "primary.main",
+            }}
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Responsive drawer
-          </Typography>
+          <Box>
+            <Typography variant="body2" noWrap component="p" color="gray">
+              Hi, Mominul
+            </Typography>
+
+            <Typography
+              variant="body2"
+              noWrap
+              component="p"
+              color="primary.main"
+            >
+              Welcome HelthCare Dashboard
+            </Typography>
+          </Box>
         </Toolbar>
       </AppBar>
       <Box
