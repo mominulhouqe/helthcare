@@ -2,8 +2,11 @@ import CustomFileUploader from "@/components/CustomForm/CustomFileUploader";
 import CustomForm from "@/components/CustomForm/CustomForm";
 import CustomInput from "@/components/CustomForm/CustomInput";
 import RModal from "@/components/Shared/RModal/RModal";
-import { Button, Grid, TextField } from "@mui/material";
+import { useCreateSpecialtyMutation } from "@/redux/api/specialtiesApi";
+import { modifyPayload } from "@/utils/modifyPayload";
+import { Button, Grid } from "@mui/material";
 import { FieldValues } from "react-hook-form";
+import { toast } from "sonner";
 
 type TProps = {
   open: boolean;
@@ -11,8 +14,21 @@ type TProps = {
 };
 
 const SpecialistModal = ({ open, setOpen }: TProps) => {
-  const handleFormSubmit = (values: FieldValues) => {
+  const [createSpecialty] = useCreateSpecialtyMutation();
+
+  const handleFormSubmit = async (values: FieldValues) => {
     console.log(values);
+    const data = modifyPayload(values);
+    try {
+      const res = await createSpecialty(data).unwrap();
+      if (res?.id) {
+        toast.success("Specialty created successfully");
+        setOpen(false);
+      }
+      console.log(res);
+    } catch (err: any) {
+      console.error(err.message);
+    }
   };
 
   return (
