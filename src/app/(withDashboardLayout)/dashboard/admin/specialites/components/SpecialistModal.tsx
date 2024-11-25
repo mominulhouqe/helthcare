@@ -11,7 +11,9 @@ type TProps = {
 };
 
 const SpecialistModal = ({ open, setOpen }: TProps) => {
-  const handleFormSubmit = (values: FieldValues) => {};
+  const handleFormSubmit = (values: FieldValues) => {
+    console.log(values);
+  };
 
   return (
     <RModal open={open} setOpen={setOpen} title="Create a New Specialty">

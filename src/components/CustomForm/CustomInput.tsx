@@ -1,35 +1,32 @@
-import { TextField } from "@mui/material";
 import React from "react";
-import { Controller, useFormContext } from "react-hook-form";
+import { Controller } from "react-hook-form";
+import TextField from "@mui/material/TextField";
 
-export type TInputProps = {
+interface CustomInputProps {
+  control?: any;
   name: string;
-  label?: string;
-  type?: string;
-  size?: "small" | "medium";
-  fullWidth?: boolean;
-};
+  label: string;
+  defaultValue?: string; // Optional default value
+}
 
-const CustomInput = ({
+const CustomInput: React.FC<CustomInputProps> = ({
+  control,
   name,
   label,
-  type = "text",
-  size = "small",
-  fullWidth,
-}: TInputProps) => {
-  const { control } = useFormContext();
+  defaultValue = "",
+}) => {
   return (
     <Controller
-      control={control}
       name={name}
+      control={control}
+      defaultValue={defaultValue} // Ensure defaultValue is set
       render={({ field }) => (
         <TextField
           {...field}
           label={label}
-          type={type}
-          variant="outlined"
-          size={size}
-          fullWidth={fullWidth}
+          value={field.value || ""} // Fallback to empty string if value is undefined
+          onChange={(e) => field.onChange(e.target.value)}
+          fullWidth
         />
       )}
     />
