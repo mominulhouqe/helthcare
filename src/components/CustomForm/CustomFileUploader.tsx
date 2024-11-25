@@ -17,7 +17,7 @@ export default function CustomFileUploader({ name, label, sx }: TProps) {
     <Controller
       name={name}
       control={control}
-      render={({ field: { onChange, value, ...field } }) => {
+      render={({ field: { onChange, value = "", ...field } }) => {
         return (
           <Button
             component="label"
@@ -31,8 +31,10 @@ export default function CustomFileUploader({ name, label, sx }: TProps) {
             <Input
               {...field}
               type={name}
-              value={value?.fileName}
-              onChange={(e) => console.log(e.target.files)}
+              value={value?.fileName || ""}
+              onChange={(e) =>
+                onChange((e?.target as HTMLInputElement).files?.[0])
+              }
               style={{ display: "none" }}
             />
           </Button>
