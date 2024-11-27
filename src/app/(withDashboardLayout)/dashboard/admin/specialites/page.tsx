@@ -9,19 +9,32 @@ import {
 } from "@mui/material";
 import SpecialistModal from "./components/SpecialistModal";
 import { useState } from "react";
-import { useGetAllSpecialtiesQuery } from "@/redux/api/specialtiesApi";
+import {
+  useDeleteSpecialtyMutation,
+  useGetAllSpecialtiesQuery,
+} from "@/redux/api/specialtiesApi";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Image from "next/image";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { styled } from "@mui/material/styles";
+import { getUserInfo } from "@/services/auth.services";
 
 const SpecialitesPage = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const userInfo = getUserInfo();
+  console.log(userInfo);
 
   const { data, isLoading } = useGetAllSpecialtiesQuery({});
   // console.log(data);
-  const handleDelete = (id: string) => {
-    console.log("delete", id);
+  const [deleteSpecialty] = useDeleteSpecialtyMutation();
+  const handleDelete = async (id: string) => {
+    // console.log("delete", id);
+    try {
+      const res = await deleteSpecialty(id);
+      console.log(res);
+    } catch (err: any) {
+      console.error(err.message);
+    }
   };
 
   const columns: GridColDef[] = [
@@ -29,15 +42,17 @@ const SpecialitesPage = () => {
     {
       field: "icon",
       headerName: "Icon",
-      width: 300,
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
       renderCell: ({ row }) => {
         return (
           <Box>
             <Image
               src={row?.icon || ""}
               alt="icon"
-              width={60}
-              height={50}
+              width={40}
+              height={40}
               style={{ borderRadius: "8px" }}
             />
           </Box>
@@ -47,7 +62,9 @@ const SpecialitesPage = () => {
     {
       field: "action",
       headerName: "Action",
-      width: 400,
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
       renderCell: ({ row }) => {
         return (
           <IconButton

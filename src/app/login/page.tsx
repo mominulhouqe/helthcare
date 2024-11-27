@@ -93,14 +93,13 @@ const LoginPage = () => {
           <Box>
             <Grid container spacing={2} mt={1}>
               <Grid item xs={12} md={6}>
-                <CustomInput name="email" label="Email" fullWidth={true} />
+                <CustomInput name="email" label="Email" />
               </Grid>
               <Grid item xs={12} md={6}>
                 <CustomInput
                   name="password"
                   label="Password"
-                  fullWidth
-                  type={showPassword ? "text" : "password"}
+                  // type={showPassword ? "text" : "password"}
                 />
               </Grid>
             </Grid>
