@@ -18,6 +18,7 @@ import Image from "next/image";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { styled } from "@mui/material/styles";
 import { getUserInfo } from "@/services/auth.services";
+import { toast } from "sonner";
 
 const SpecialitesPage = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -32,6 +33,9 @@ const SpecialitesPage = () => {
     try {
       const res = await deleteSpecialty(id);
       console.log(res);
+      if (res?.data?.id) {
+        toast.success("Specialty deleted successfully");
+      }
     } catch (err: any) {
       console.error(err.message);
     }
