@@ -25,7 +25,11 @@ const SpecialitesPage = () => {
   const userInfo = getUserInfo();
   console.log(userInfo);
 
-  const { data, isLoading } = useGetAllSpecialtiesQuery({});
+  const { data, isLoading, error } = useGetAllSpecialtiesQuery({});
+  if (error) {
+    console.error("Failed to fetch specialties:", error);
+    toast.error("Failed to fetch specialties");
+  }
   // console.log(data);
   const [deleteSpecialty] = useDeleteSpecialtyMutation();
   const handleDelete = async (id: string) => {
@@ -37,7 +41,8 @@ const SpecialitesPage = () => {
         toast.success("Specialty deleted successfully");
       }
     } catch (err: any) {
-      console.error(err.message);
+      console.error("Failed to delete specialty:", err.message);
+      toast.error("Failed to delete specialty");
     }
   };
 

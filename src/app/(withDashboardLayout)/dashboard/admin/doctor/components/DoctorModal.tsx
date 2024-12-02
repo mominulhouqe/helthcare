@@ -6,6 +6,7 @@ import CustomInput from "@/components/CustomForm/CustomInput";
 import CustomForm from "@/components/CustomForm/CustomForm";
 import CustomSelectedForm from "@/components/CustomForm/CustomSelectedForm";
 import { Gender } from "@/types";
+import { FieldValues } from "react-hook-form";
 
 type TProps = {
   open: boolean;
@@ -31,9 +32,13 @@ const DoctorModal = ({ open, setOpen }: TProps) => {
     password: "",
   };
 
-  const handleSubmit = (values) => {
+  const handleSubmit = (values: FieldValues) => {
     // Handle form submission logic here
     console.log(values);
+    try {
+    } catch (err: any) {
+      console.error(err.message);
+    }
   };
 
   return (
